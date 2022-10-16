@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include "hashmap.h"
+#include "Hashmap.h"
 
 unsigned getHash(char c, char *hashmap)
 {   

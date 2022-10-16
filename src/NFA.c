@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "NFA.h"
+#include "Hashmap.h"
 
 void addEpisonT(State * start, State * end){
     printf("In create epsilon Trans\n");
@@ -12,11 +14,15 @@ void addEpisonT(State * start, State * end){
 }
 
 void addSymbolT(State * start, State * end, char s){
+    int index;
     printf("In create symbol Trans\n");
     // NFA * nfa = createNFA(start, end);
     start->numSymbols++;
-    start->symbolT[start->numSymbols-1] = end;
-    start->symbols[start->numSymbols-1] = s;
+    if(!insertItem(s, start->symbols)) return;
+    index = getIndex(s, start->symbols);
+    if(index == -1) return;
+    start->symbolT[index] = end;
+    start->symbols[index] = s;
     start->isEnd = 0;
     printf("created symbol Trans\n");
     // return nfa;
@@ -73,6 +79,7 @@ NFA * closure(NFA * nfa){
 State * createState(){
     printf("In create State\n");
     State * s = malloc(sizeof(State));
+    memset(s->symbols, '#', sizeof(s->symbols));
     s->isEnd = 1;
     printf("created State\n");
     return s;

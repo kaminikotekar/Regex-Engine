@@ -1,11 +1,12 @@
 #ifndef NFA_H
 #define NFA_H
+#include "Hashmap.h"
 typedef struct state{
     int numEpsilon;
     int numSymbols;
-    struct state * epsilonT[20];
-    struct state * symbolT[20];
-    char symbols[20];
+    struct state * epsilonT[HASHSIZE];
+    struct state * symbolT[HASHSIZE];
+    char symbols[HASHSIZE];
     int isEnd;
 } State;
 

@@ -8,6 +8,7 @@ typedef struct state{
     struct state * symbolT[HASHSIZE];
     char symbols[HASHSIZE];
     int isEnd;
+    int isVisited;
 } State;
 
 typedef struct nfa{

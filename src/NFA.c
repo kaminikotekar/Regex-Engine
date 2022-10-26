@@ -81,6 +81,7 @@ State * createState(){
     State * s = malloc(sizeof(State));
     memset(s->symbols, '#', sizeof(s->symbols));
     s->isEnd = 1;
+    s->isVisited = 0;
     printf("created State\n");
     return s;
 }

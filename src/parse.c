@@ -24,7 +24,7 @@ int traverse(visitedState * v, char * c, char s[], State ** visitedEpsilon){
     for (i = 0; i < v->numVisited; i++){
         st = v->currentStates[i];
         printf("\nTraversing state : %p", st);
-        printf("\n\tIs end : %d", st->isEnd);
+        printf("\n\t Is end : %d", st->isEnd);
         if (st->isEnd && (c-s+1) > strlen(s)) {
             return 1;
         }
@@ -51,7 +51,7 @@ int traverse(visitedState * v, char * c, char s[], State ** visitedEpsilon){
             clearVisited(visitedEpsilon, clearIndex);
         }
     }  
-    printf("\nnumber of next:  %d", v->numNext);
+    printf("\n number of next:  %d", v->numNext);
     printf("\n before memcpy: %lu", (sizeof(st)+v->numNext));
     memcpy(v->currentStates, v->nextStates, sizeof(st)*v->numNext);
     v->numVisited = v->numNext;

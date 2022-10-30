@@ -1,20 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "NFA.h"
+#include "Parse.h"
 
-#define TOTAL_STATES 50
-typedef struct visitedState{
-    int numVisited;
-    int numNext;
-    State * currentStates[TOTAL_STATES];
-    State * nextStates[TOTAL_STATES];
-    int endReached;
-} visitedState;
-
-void addNextFromEpsilon(State * current, visitedState * v, State ** visitedStates, int * index);
-
-void clearVisited(State ** visitedStates, int index);
 
 int traverse(visitedState * v, char * c, char s[], State ** visitedEpsilon){
     int i,j, index = -1, isSymbolAdded = 0;

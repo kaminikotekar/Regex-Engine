@@ -1,8 +1,8 @@
 execute: NFA
 	bin/run/NFA
 
-NFA: main.o NFA.o hashmap.o parse.o
-	gcc main.o parse.o NFA.o hashmap.o -o bin/run/NFA
+NFA: main.o NFA.o hashmap.o parse.o postfix.o
+	gcc main.o parse.o NFA.o hashmap.o postfix.o -o bin/run/NFA
 
 main.o:
 	gcc -c -I include src/main.c
@@ -16,5 +16,8 @@ hashmap.o:
 parse.o:
 	gcc -c -I include src/parse.c
 
+postfix.o:
+	gcc -c -I include src/postfix.c
+
 clean:
-	rm -f main.o NFA.o hashmap.o parse.o bin/run/NFA
+	rm -f main.o NFA.o hashmap.o parse.o postfix.o bin/run/NFA

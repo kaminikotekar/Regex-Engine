@@ -1,0 +1,127 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include "Postfix.h"
+
+char * createPostfix(char infix[50]){
+    char postfix [50];
+    element * HEAD = NULL;
+    char * postfixAdd = postfix;
+    int j = 0;
+
+    printf("\nInfix array");
+
+    while (j < strlen(infix)){
+        printf("\n index: %d , val: %c", j, infix[j]);
+
+        /*  
+            If alphabet then append postfix expression 
+        */
+        if (isalpha(infix[j])){
+            printf("\nis alpha");
+            *(postfixAdd++) = infix[j++];
+            continue; 
+        }
+        /* 
+            If operator with highest precedence push to stack 
+        */
+        if (infix[j] == '*' || infix[j] == '('){
+            printf("\n pushing:  %c", infix[j]);
+            push(infix[j++], &HEAD);
+            continue;
+        }
+        /* 
+            If operator with high precedence compared to operator on stack-top,
+            then push to stack 
+
+            Precedence - '*', '.', '|'
+        */
+        if ( (infix[j] == '.') && 
+                ( HEAD == NULL || HEAD->c == '|' || HEAD->c == '(')){
+            printf("\n pushing:  %c", infix[j]);
+            push(infix[j++], &HEAD);
+            continue;
+        }
+        /*
+            Push least precedented operator only which stack-top NULL or '('
+        */
+        if ((infix[j] == '|') && ( HEAD== NULL || HEAD->c == '(' )){
+            printf("\n pushing:  %c", infix[j]);
+            push(infix[j++], &HEAD);
+            continue;
+        }
+        /*
+            Pop from stack when encountered '(' untile ')' found
+        */
+        if (infix[j] == ')'){
+            while (HEAD->c != '('){
+                if(HEAD == NULL){
+                    printf("Invalid expression");
+                    return 0;
+                }
+                *(postfixAdd++) = pop(&HEAD);
+            }
+            printf("\n HEAD after loop ) : %p", HEAD);
+            pop(&HEAD);
+            j++;
+            continue;
+        }
+        /*
+            Else pop everything until NULL
+        */
+        if (HEAD != NULL && (HEAD->c == '|' || HEAD->c == '.' || HEAD->c =='*')){
+            printf("\npopping in last while");
+            printf("\n\t HEAD : %c", HEAD->c);
+             *(postfixAdd++) = pop(&HEAD);
+        }
+        // push(infix[j], &HEAD);
+        printf("\n After last while");
+    }
+    if(HEAD != NULL)
+        *(postfixAdd++) = pop(&HEAD);
+
+    printf("\nAfter Inserting in postfix");   
+    for( j=0; j<strlen(postfix); j++){
+        printf("\n index: %d , val: %c", j, postfix[j]);
+    }
+    return postfix;
+}
+
+/*
+    Insert each character on to stack 
+*/
+int push(char symbol, element ** HEAD){
+    element * e = createNode();
+    e->c = symbol;
+    if(*HEAD == NULL){
+        e->prev = NULL;
+        *HEAD = e; 
+    }
+    else{
+        e->prev = *HEAD;
+        *HEAD = e;
+    }
+    printf("\nHEAD in push %p", *HEAD);
+    return 1;
+}
+
+/* 
+    Pop each `element` character and release alloactated memory at HEAD  
+*/
+char pop(element ** HEAD){
+    char c = (*HEAD)->c;
+    free(*HEAD);
+    printf("\nchar in pop %c", c);
+    *HEAD = (*HEAD)->prev;
+    return c;
+}
+
+/*
+    Allocate memory for new `element` and return pointer to that memory
+*/ 
+element * createNode(){
+    element * temp;
+    temp = malloc(sizeof(element));
+    return temp;
+}

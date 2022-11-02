@@ -5,7 +5,7 @@
 #include "Postfix.h"
 
 char * createPostfix(char infix[50]){
-    char postfix [50];
+    static char postfix [50];
     element * HEAD = NULL;
     char * postfixAdd = postfix;
     int j = 0;
@@ -16,10 +16,12 @@ char * createPostfix(char infix[50]){
         printf("\n index: %d , val: %c", j, infix[j]);
 
         /*  
-            If alphabet then append postfix expression 
+            If alphabet then append postfix expression only if not preceded by '*'
         */
         if (isalpha(infix[j])){
             printf("\nis alpha");
+            if (infix[j-1] == '*')
+                return NULL;
             *(postfixAdd++) = infix[j++];
             continue; 
         }
@@ -55,20 +57,17 @@ char * createPostfix(char infix[50]){
             Pop from stack when encountered '(' untile ')' found
         */
         if (infix[j] == ')'){
-            while (HEAD->c != '('){
-                if(HEAD == NULL){
-                    printf("Invalid expression");
-                    return 0;
-                }
+            while (HEAD != NULL && HEAD->c != '(')
                 *(postfixAdd++) = pop(&HEAD);
-            }
+            if (HEAD == NULL)
+                return NULL;
             printf("\n HEAD after loop ) : %p", HEAD);
             pop(&HEAD);
             j++;
             continue;
         }
         /*
-            Else pop everything until NULL
+            Else pop and continue
         */
         if (HEAD != NULL && (HEAD->c == '|' || HEAD->c == '.' || HEAD->c =='*')){
             printf("\npopping in last while");
@@ -81,8 +80,13 @@ char * createPostfix(char infix[50]){
     if(HEAD != NULL)
         *(postfixAdd++) = pop(&HEAD);
 
+    if(HEAD != NULL)
+        return NULL;
+
+    *(postfixAdd) = '\n';
+    
     printf("\nAfter Inserting in postfix");   
-    for( j=0; j<strlen(postfix); j++){
+    for( j=0; postfix[j] != '\n'; j++){
         printf("\n index: %d , val: %c", j, postfix[j]);
     }
     return postfix;

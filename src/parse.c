@@ -20,6 +20,7 @@ int traverse(visitedState * v, char * c, char s[], State ** visitedEpsilon){
         printf("\n\t strlen pos : %lu", strlen(s));
         if ((c-s+1) <= strlen(s)){
             printf("\n\t string not empty");
+            index = -1;
             if (st->numSymbols > 0) 
                 index = getIndex(*c, st->symbols);
             if (index != -1) {

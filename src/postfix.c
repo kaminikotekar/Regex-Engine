@@ -10,6 +10,9 @@ char * createPostfix(char infix[50]){
     char * postfixAdd = postfix;
     int j = 0;
 
+    if (!isalpha(infix[0]))
+        return NULL;
+
     printf("\nInfix array");
 
     while (j < strlen(infix)){
@@ -77,11 +80,8 @@ char * createPostfix(char infix[50]){
         // push(infix[j], &HEAD);
         printf("\n After last while");
     }
-    if(HEAD != NULL)
+    while(HEAD != NULL)
         *(postfixAdd++) = pop(&HEAD);
-
-    if(HEAD != NULL)
-        return NULL;
 
     *(postfixAdd) = '\n';
     

@@ -1,23 +1,24 @@
-execute: NFA
-	bin/run/NFA
+CC = gcc
+CFLAGS = -I include
+IDIR = src
+ODIR = build
+TARGET = bin/run/engine
+SOURCEF = $(patsubst src/%.c, build/%.o, $(wildcard src/*.c))
 
-NFA: main.o NFA.o hashmap.o parse.o postfix.o
-	gcc main.o parse.o NFA.o hashmap.o postfix.o -o bin/run/NFA
+execute: build
+	$(TARGET)
 
-main.o:
-	gcc -c -I include src/main.c
+build: $(SOURCEF)
+	@echo "Linking and compiling ....."
+	$(CC) $^ -o $(TARGET)
 
-NFA.o:
-	gcc -c -I include src/NFA.c
-
-hashmap.o:
-	gcc -c -I include src/hashmap.c
-
-parse.o:
-	gcc -c -I include src/parse.c
-
-postfix.o:
-	gcc -c -I include src/postfix.c
+$(ODIR)/%.o: $(IDIR)/%.c
+	$(CC) -c $(CFLAGS) $< -o $@ 
 
 clean:
-	rm -f main.o NFA.o hashmap.o parse.o postfix.o bin/run/NFA
+	rm -f $(ODIR)/*.o bin/run/NFA
+
+.PHONY: clean
+
+
+

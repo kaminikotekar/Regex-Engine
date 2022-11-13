@@ -10,9 +10,6 @@ char * createPostfix(char infix[50]){
     char * postfixAdd = postfix;
     int j = 0;
 
-    if (!isalpha(infix[0]))
-        return NULL;
-
     printf("\nInfix array");
 
     while (j < strlen(infix)){
@@ -44,6 +41,8 @@ char * createPostfix(char infix[50]){
         */
         if ( (infix[j] == '.') && 
                 ( HEAD == NULL || HEAD->c == '|' || HEAD->c == '(')){
+            if (!isalpha(infix[j-1]) && infix[j-1]!= '*' && infix[j-1] != ')') return NULL;
+            if (! isalpha(infix[j+1]) && infix[j+1] != '(') return NULL;
             printf("\n pushing:  %c", infix[j]);
             push(infix[j++], &HEAD);
             continue;
@@ -52,6 +51,8 @@ char * createPostfix(char infix[50]){
             Push least precedented operator only which stack-top NULL or '('
         */
         if ((infix[j] == '|') && ( HEAD== NULL || HEAD->c == '(' )){
+            if (!isalpha(infix[j-1]) && infix[j-1]!= '*' && infix[j-1] != ')') return NULL;
+            if (! isalpha(infix[j+1]) && infix[j+1] != '(') return NULL;
             printf("\n pushing:  %c", infix[j]);
             push(infix[j++], &HEAD);
             continue;

@@ -48,6 +48,7 @@ NFA * parsePostfix(char * postfix, int size) {
             postfix++;
         }
     }
+    if (index-1 > 0) return NULL;
     printf("\n final NFA: %p", nfaStack[0]);
     return nfaStack[index-1];
 }

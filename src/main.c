@@ -118,4 +118,38 @@ int main(int argc, char *argv[]){
         };
         return 0;
     }
+
+    /*
+        Run test cases
+    */
+    if (!strcmp(argv[1],"test")){
+        FILE * test_file = fopen("test.txt", "r");
+        char * infix;
+        char * pattr;
+        char line[1024];
+        int test_case = 0;
+        while (fgets(line, 1024, test_file))
+        {
+            infix = strtok(line, ";");
+            printf("\nTEST CASE: %d", ++test_case);
+            postfix_ptr = createPostfix(infix);
+            postfix_size = get_postfix_size(postfix_ptr);
+            if (postfix_size==0) continue;
+            nfa = parsePostfix(postfix_ptr, postfix_size);
+            printf("\npostfix nfa: %p", nfa);
+            if (nfa == NULL){
+                printf("\n\tInvalid Regex expression");
+                continue;
+            }
+            for (pattr = strtok(NULL, ";");
+                    pattr && *pattr;
+                    pattr = strtok(NULL, ";\n"))
+            {
+                printf( "\n\tpattern: %s ", pattr );
+                if (does_patttern_match(&v, &pattr, nfa))
+                    printf("\n\tTEST CASE PASSED");
+                else printf("\n\tTEST CASE FAIL");
+            }
+        }
+    }
 }

@@ -116,8 +116,8 @@ int push(char symbol, element ** HEAD){
 */
 char pop(element ** HEAD){
     char c = (*HEAD)->c;
-    free(*HEAD);
-    printf("\nchar in pop %c", c);
+    element *tmp = *HEAD;
+    // printf("\nchar in pop %c", c);
     *HEAD = (*HEAD)->prev;
     return c;
 }

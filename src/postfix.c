@@ -119,6 +119,7 @@ char pop(element ** HEAD){
     element *tmp = *HEAD;
     // printf("\nchar in pop %c", c);
     *HEAD = (*HEAD)->prev;
+    free(tmp);
     return c;
 }
 

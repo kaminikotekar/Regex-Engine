@@ -144,7 +144,7 @@ int main(int argc, char *argv[]){
             for (pattr = strtok(NULL, ";");
                     pattr && *pattr;
                     pattr = strtok(NULL, ";\n"))
-            {
+            {    
                 printf( "\n\tpattern: %s ", pattr );
                 if (does_patttern_match(&v, &pattr, nfa))
                     printf("\n\tTEST CASE PASSED");

@@ -1,5 +1,6 @@
 #include "Postfix.h"
 #include "PostfixToNFA.h"
+#include "Colors.h"
 #include "Main.h"
 #include <string.h>
 #include <stdlib.h>
@@ -8,13 +9,13 @@
 
 void  INThandler(int sig)
 {   
-    printf("\n\n----- THANK YOU -----\n\n");
+    printf("\nExiting ...");
+    print_banner("data/raw/thankyou.txt");
     exit(0);
 }
 
-void print_banner()
+void print_banner(char * filename)
 {   
-    char *filename = "data/raw/banner.txt";
     char read_string[50];
     FILE *fptr = NULL;
 
@@ -39,22 +40,20 @@ void print_table_rules(){
     printf("\n%-20s%-20s%-20s%-20s\n"," Concatenation", ".", "a.b", "Eg:a.b" );
     printf("\n%-20s%-20s%-20s%-20s\n"," Closure", "*", "a*", "Eg:a,aa,aaa" );
     printf("--------------------------------------------------------------------------------");
-    printf("\n\n NOTE: '(' and ')' can also be used to contruct expressions");
-    printf("\n\n TO EXIT THE PROGRAM PRESS 'Q' or 'q'");
+    printf(GRN "\n\n NOTE: '(' and ')' can also be used to contruct expressions");
+    printf(RED "\n\n TO EXIT THE PROGRAM PRESS 'Q' or 'q'" RESET);
 }
 
 int get_postfix_size(char * postfix){
     int size = 0;
-    printf("\n inside get postfix size");
     if (postfix == NULL){
-        printf("\nInvalid Regex expression");
+        printf(RED"\n Invalid Regex expression"RESET);
         return 0;
     }
     while (*postfix != '\n'){
         size++;
         postfix++;
     }
-    printf("\n inside get postfix size: %d", size);
     return size;
 }
 
@@ -80,10 +79,9 @@ int main(int argc, char *argv[]){
         printf("\n Too many arguments");
         return 1;
     }
-    // printf("\n argument provided is : %s", argv[1]);
     if (!strcmp(argv[1],"run")){
 
-        print_banner();
+        print_banner("data/raw/banner.txt");
         print_table_rules();
         /*
             Enter input
@@ -111,9 +109,9 @@ int main(int argc, char *argv[]){
                 scanf("%s", pattern);
                 if (!strcmp (pattern, "\\")) break;
                 if (does_patttern_match(&v, pattern, nfa))
-                    printf("\nTHIS PATTERN MATCHES!!");
-                else printf("\nTHIS PATTERN DOES NOT MATCH!!");
-                printf("\nTo enter a new Regex enter '\\'");
+                    printf(GRN "\n𝗧𝗛𝗜𝗦 𝗣𝗔𝗧𝗧𝗘𝗥𝗡 𝗠𝗔𝗧𝗖𝗛𝗘𝗦 (•◡•) " RESET);
+                else printf(RED "\n𝗧𝗛𝗜𝗦 𝗣𝗔𝗧𝗧𝗘𝗥𝗡 𝗗𝗢𝗘𝗦 𝗡𝗢𝗧 𝗠𝗔𝗧𝗖𝗛 ❗" RESET);
+                printf(CYN "\nTo enter a new Regex enter '\\'\n" RESET);
             };
         };
         return 0;
@@ -131,12 +129,13 @@ int main(int argc, char *argv[]){
         while (fgets(line, 1024, test_file))
         {
             infix = strtok(line, ";");
-            printf("\nTEST CASE: %d", ++test_case);
+            printf("\n\nTEST CASE: %d", ++test_case);
+            printf("\n=============");
+            printf("\n%-20s%29s", " 𝔼𝕩𝕡𝕣𝕖𝕤𝕤𝕚𝕠𝕟 :", infix);
             postfix_ptr = createPostfix(infix);
             postfix_size = get_postfix_size(postfix_ptr);
             if (postfix_size==0) continue;
             nfa = parsePostfix(postfix_ptr, postfix_size);
-            printf("\npostfix nfa: %p", nfa);
             if (nfa == NULL){
                 printf("\n\tInvalid Regex expression");
                 continue;
@@ -145,11 +144,12 @@ int main(int argc, char *argv[]){
                     pattr && *pattr;
                     pattr = strtok(NULL, ";\n"))
             {    
-                printf( "\n\tpattern: %s ", pattr );
-                if (does_patttern_match(&v, &pattr, nfa))
-                    printf("\n\tTEST CASE PASSED");
-                else printf("\n\tTEST CASE FAIL");
+                if (does_patttern_match(&v, pattr+1, nfa))
+                    printf(GRN "\n%-20s%-15s%-5s" RESET, pattr,"....................", " ✔" );
+                else 
+                    printf(RED "\n%-20s%-15s%-5s" RESET, pattr,"....................", " ✘" );
             }
         }
+        printf("\n");
     }
 }

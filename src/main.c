@@ -2,6 +2,7 @@
 #include "PostfixToNFA.h"
 #include "Colors.h"
 #include "Main.h"
+#include "Log.h"
 #include <string.h>
 #include <stdlib.h>
 #include  <signal.h>

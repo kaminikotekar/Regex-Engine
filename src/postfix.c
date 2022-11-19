@@ -3,23 +3,20 @@
 #include <string.h>
 #include <ctype.h>
 #include "Postfix.h"
+#include "Log.h"
 
 char * createPostfix(char infix[50]){
     static char postfix [50];
+    char * log_output = (char*)malloc(13 * sizeof(char));
     element * HEAD = NULL;
     char * postfixAdd = postfix;
     int j = 0;
 
-    printf("\nInfix array");
-
     while (j < strlen(infix)){
-        printf("\n index: %d , val: %c", j, infix[j]);
-
         /*  
             If alphabet then append postfix expression only if not preceded by '*'
         */
         if (isalpha(infix[j])){
-            printf("\nis alpha");
             if (infix[j-1] == '*')
                 return NULL;
             *(postfixAdd++) = infix[j++];
@@ -29,7 +26,6 @@ char * createPostfix(char infix[50]){
             If operator with highest precedence push to stack 
         */
         if (infix[j] == '*' || infix[j] == '('){
-            printf("\n pushing:  %c", infix[j]);
             push(infix[j++], &HEAD);
             continue;
         }
@@ -43,7 +39,6 @@ char * createPostfix(char infix[50]){
                 ( HEAD == NULL || HEAD->c == '|' || HEAD->c == '(')){
             if (!isalpha(infix[j-1]) && infix[j-1]!= '*' && infix[j-1] != ')') return NULL;
             if (! isalpha(infix[j+1]) && infix[j+1] != '(') return NULL;
-            printf("\n pushing:  %c", infix[j]);
             push(infix[j++], &HEAD);
             continue;
         }
@@ -53,7 +48,6 @@ char * createPostfix(char infix[50]){
         if ((infix[j] == '|') && ( HEAD== NULL || HEAD->c == '(' )){
             if (!isalpha(infix[j-1]) && infix[j-1]!= '*' && infix[j-1] != ')') return NULL;
             if (! isalpha(infix[j+1]) && infix[j+1] != '(') return NULL;
-            printf("\n pushing:  %c", infix[j]);
             push(infix[j++], &HEAD);
             continue;
         }
@@ -65,7 +59,6 @@ char * createPostfix(char infix[50]){
                 *(postfixAdd++) = pop(&HEAD);
             if (HEAD == NULL)
                 return NULL;
-            printf("\n HEAD after loop ) : %p", HEAD);
             pop(&HEAD);
             j++;
             continue;
@@ -74,22 +67,19 @@ char * createPostfix(char infix[50]){
             Else pop and continue
         */
         if (HEAD != NULL && (HEAD->c == '|' || HEAD->c == '.' || HEAD->c =='*')){
-            printf("\npopping in last while");
-            printf("\n\t HEAD : %c", HEAD->c);
              *(postfixAdd++) = pop(&HEAD);
         }
-        // push(infix[j], &HEAD);
-        printf("\n After last while");
     }
     while(HEAD != NULL)
         *(postfixAdd++) = pop(&HEAD);
 
     *(postfixAdd) = '\n';
     
-    printf("\nAfter Inserting in postfix");   
+    sprintf(log_output, "Postfix Expression: ");  
     for( j=0; postfix[j] != '\n'; j++){
-        printf("\n index: %d , val: %c", j, postfix[j]);
+        sprintf(log_output + strlen(log_output), "%c", postfix[j]);
     }
+    log_text(log_output);
     return postfix;
 }
 
@@ -107,7 +97,6 @@ int push(char symbol, element ** HEAD){
         e->prev = *HEAD;
         *HEAD = e;
     }
-    printf("\nHEAD in push %p", *HEAD);
     return 1;
 }
 
@@ -117,7 +106,6 @@ int push(char symbol, element ** HEAD){
 char pop(element ** HEAD){
     char c = (*HEAD)->c;
     element *tmp = *HEAD;
-    // printf("\nchar in pop %c", c);
     *HEAD = (*HEAD)->prev;
     free(tmp);
     return c;

@@ -2,13 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Parse.h"
+#include "Constants.h"
 #include "Log.h"
 
 
 int traverse(visitedState * v, char * c, char s[], State ** visitedEpsilon){
     int i,j, index = -1, isSymbolAdded = 0;
     int clearIndex = 0;
-    char * log_output = (char*)malloc(30 * sizeof(char));
+    char * log_output = (char*)malloc(LOG_SIZE * sizeof(char));
     State * st;
     if (v->numVisited == 0) return 0;
     for (i = 0; i < v->numVisited; i++){

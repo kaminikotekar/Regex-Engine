@@ -1,5 +1,6 @@
 #ifndef POSTFIX_H
 #define POSTFIX_H
+#include "Constants.h"
 
 typedef struct element {
     char c;
@@ -9,6 +10,6 @@ typedef struct element {
 int push(char symbol, element ** HEAD);
 char pop(element ** HEAD);
 element * createNode();
-char * createPostfix(char infix[50]);
+char * createPostfix(char infix[INFIX_SIZE]);
 
 #endif

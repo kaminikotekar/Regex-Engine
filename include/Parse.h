@@ -2,8 +2,6 @@
 #define PARSE_H
 #include "NFA.h"
 
-#define TOTAL_STATES 50
-
 typedef struct visitedState{
     int numVisited;
     int numNext;

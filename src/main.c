@@ -1,5 +1,6 @@
 #include "Postfix.h"
 #include "PostfixToNFA.h"
+#include "Constants.h"
 #include "Colors.h"
 #include "Main.h"
 #include "Log.h"
@@ -11,7 +12,7 @@
 void  INThandler(int sig)
 {   
     printf("\nExiting ...");
-    print_banner("data/raw/thankyou.txt");
+    print_banner(BANNER_PATH_END);
     exit(0);
 }
 
@@ -63,12 +64,12 @@ int does_patttern_match(visitedState ** v, char pattern [], NFA * nfa ){
     (*v)->numVisited = 1;
     (*v)->numNext =0;
     (*v)->currentStates[0]=nfa->start;
-    State * visitedEpsilon[50];
+    State * visitedEpsilon[VISITED_EPSILON];
     return traverse(*v, pattern, pattern, visitedEpsilon);
 }
 
 int main(int argc, char *argv[]){
-    char infix_expression[100], pattern[100];
+    char infix_expression[INFIX_SIZE], pattern[PATTERN_SIZE];
     char * postfix_ptr;
     int postfix_size;
     visitedState * v;
@@ -82,7 +83,7 @@ int main(int argc, char *argv[]){
     }
     if (!strcmp(argv[1],"run")){
 
-        print_banner("data/raw/banner.txt");
+        print_banner(BANNER_PATH_INTRO);
         print_table_rules();
         /*
             Enter input
@@ -122,12 +123,12 @@ int main(int argc, char *argv[]){
         Run test cases
     */
     if (!strcmp(argv[1],"test")){
-        FILE * test_file = fopen("test.txt", "r");
+        FILE * test_file = fopen(TEST_PATH, "r");
         char * infix;
         char * pattr;
-        char line[1024];
+        char line[TEST_SIZE];
         int test_case = 0;
-        while (fgets(line, 1024, test_file))
+        while (fgets(line, TEST_SIZE, test_file))
         {
             infix = strtok(line, ";");
             printf("\n\nTEST CASE: %d", ++test_case);

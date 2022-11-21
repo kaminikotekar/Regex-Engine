@@ -1,6 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include "Hashmap.h"
+#include "Constants.h"
 #include "Log.h"
 
 unsigned getHash(char c, char *hashmap)
@@ -12,7 +13,7 @@ unsigned getHash(char c, char *hashmap)
 int insertItem(char c, char *hashmap)
 {
     int index = getHash(c, hashmap);
-    char * log_output = (char*)malloc(30 * sizeof(char));
+    char * log_output = (char*)malloc(LOG_SIZE * sizeof(char));
 
     while (index++ < HASHSIZE){
         if (hashmap[index] == '#') break; 
@@ -29,7 +30,7 @@ int insertItem(char c, char *hashmap)
 int getIndex(char c, char *hashmap)
 {
     int index = getHash(c, hashmap);
-    char * log_output = (char*)malloc(30 * sizeof(char));
+    char * log_output = (char*)malloc(LOG_SIZE * sizeof(char));
 
     if (hashmap[index] == c){
         return index;

@@ -3,11 +3,12 @@
 #include <string.h>
 #include <ctype.h>
 #include "Postfix.h"
+#include "Constants.h"
 #include "Log.h"
 
-char * createPostfix(char infix[50]){
-    static char postfix [50];
-    char * log_output = (char*)malloc(13 * sizeof(char));
+char * createPostfix(char infix[INFIX_SIZE]){
+    static char postfix [INFIX_SIZE];
+    char * log_output = (char*)malloc(LOG_SIZE * sizeof(char));
     element * HEAD = NULL;
     char * postfixAdd = postfix;
     int j = 0;

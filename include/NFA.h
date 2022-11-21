@@ -1,6 +1,8 @@
 #ifndef NFA_H
 #define NFA_H
 #include "Hashmap.h"
+#include "Constants.h"
+
 typedef struct state{
     int numEpsilon;
     int numSymbols;

@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "Postfix.h"
+#include "Colors.h"
 #include "Constants.h"
 #include "Log.h"
 
@@ -18,7 +19,7 @@ char * createPostfix(char infix[INFIX_SIZE]){
             If alphabet then append postfix expression only if not preceded by '*'
         */
         if (isalpha(infix[j])){
-            if (infix[j-1] == '*')
+            if (infix[j-1] == '*' || isalpha(infix[j-1]))
                 return NULL;
             *(postfixAdd++) = infix[j++];
             continue; 
@@ -38,8 +39,6 @@ char * createPostfix(char infix[INFIX_SIZE]){
         */
         if ( (infix[j] == '.') && 
                 ( HEAD == NULL || HEAD->c == '|' || HEAD->c == '(')){
-            if (!isalpha(infix[j-1]) && infix[j-1]!= '*' && infix[j-1] != ')') return NULL;
-            if (! isalpha(infix[j+1]) && infix[j+1] != '(') return NULL;
             push(infix[j++], &HEAD);
             continue;
         }
@@ -47,8 +46,6 @@ char * createPostfix(char infix[INFIX_SIZE]){
             Push least precedented operator only which stack-top NULL or '('
         */
         if ((infix[j] == '|') && ( HEAD== NULL || HEAD->c == '(' )){
-            if (!isalpha(infix[j-1]) && infix[j-1]!= '*' && infix[j-1] != ')') return NULL;
-            if (! isalpha(infix[j+1]) && infix[j+1] != '(') return NULL;
             push(infix[j++], &HEAD);
             continue;
         }
@@ -69,7 +66,10 @@ char * createPostfix(char infix[INFIX_SIZE]){
         */
         if (HEAD != NULL && (HEAD->c == '|' || HEAD->c == '.' || HEAD->c =='*')){
              *(postfixAdd++) = pop(&HEAD);
+             continue;
         }
+        printf(RED "\n Make sure you are using the operators defined in the rules" RESET);
+        return NULL;
     }
     while(HEAD != NULL)
         *(postfixAdd++) = pop(&HEAD);

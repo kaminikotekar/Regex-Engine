@@ -43,7 +43,8 @@ void print_table_rules(){
     printf("\n%-20s%-20s%-20s%-20s\n"," Closure", "*", "a*", "Eg:a,aa,aaa" );
     printf("--------------------------------------------------------------------------------");
     printf(GRN "\n\n NOTE: '(' and ')' can also be used to contruct expressions");
-    printf(RED "\n\n TO EXIT THE PROGRAM PRESS 'Q' or 'q'" RESET);
+    printf(RED "\n\n TO EXIT THE PROGRAM PRESS: " RESET);
+    printf(CYN "𝙲𝚝𝚛𝚕 + 𝙲" RESET);
 }
 
 int get_postfix_size(char * postfix){
@@ -103,7 +104,7 @@ int main(int argc, char *argv[]){
             */
             nfa = parsePostfix(postfix_ptr, postfix_size);
             if (nfa == NULL){
-                printf("\nInvalid Regex expression");
+                printf(RED "\n Invalid Regex expression" RESET);
                 continue;
             }
             while(1) {
@@ -139,7 +140,7 @@ int main(int argc, char *argv[]){
             if (postfix_size==0) continue;
             nfa = parsePostfix(postfix_ptr, postfix_size);
             if (nfa == NULL){
-                printf("\n\tInvalid Regex expression");
+                printf(RED "\n Invalid Regex expression" RESET);
                 continue;
             }
             for (pattr = strtok(NULL, ";");

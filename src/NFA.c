@@ -67,6 +67,8 @@ State * createState(){
     memset(s->symbols, '#', sizeof(s->symbols));
     s->isEnd = 1;
     s->isVisited = 0;
+    s->numEpsilon = 0;
+    s->numSymbols = 0;
     return s;
 }
 

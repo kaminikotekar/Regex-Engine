@@ -1,12 +1,12 @@
 ## REGULAR EXPRESSION ENGINE 
 
-#### Introduction
+### Introduction
 
 A regular expression is a pattern that can be used to match a string of characters. For example `a|b*` is a regular expression that matches a string of characters containing a single character `a`, an empty string `''` or one or more characters of `b`. 
 
 A regular expression can be represented as a Finite State Machine (`FA`). Any set of strings that reaches the end state of this `FA` will correspond to the regular expression.
 
-#### Syntax
+### Syntax
 
 Following operators are supported by this Regex Engine
 
@@ -18,7 +18,7 @@ Following operators are supported by this Regex Engine
 
 **NOTE**: `(` and `)` can also be used to construct a regular expression.
 
-#### Operator precendence
+### Operator precendence
 The precendence order of the operators for a postfix expression are as follows:
 
 1. Parentheses
@@ -40,7 +40,7 @@ A regular expression `a.b.c|(d.e)*` will be executed as follows
 ```
 
 
-#### Build
+### Build
 Use `make` utility to build and execute.
 
 * To compile/build
@@ -60,7 +60,7 @@ Use `make` utility to build and execute.
     make clean
     ```
 
-#### Architecture
+### Architecture
 
 ![image info](./data/raw/regex_architecture.png)
 
@@ -80,7 +80,7 @@ Following constants can be modified in a constants file `include/Constants.h` ba
 |`BANNER_PATH_INTRO`| path to ASCII banner |
 |`BANNER_PATH_END`| path to ASCII banner |
 
-#### Running Test cases
+### Running Test cases
 
 Test cases are recorded in a semicolon seperated file `data/tests/test.txt`. The first column of the file represents the Regex whereas all columns from second to last represents multiple pattern
 
@@ -91,5 +91,5 @@ re_2; pattr_21; pattr_22; pattr_23; .....
 
 
 
-#### REFERENCE
+### References
 *  [Implementing a Regular Expression Engine by Denis Kyashif](https://deniskyashif.com/2019/02/17/implementing-a-regular-expression-engine/)

@@ -12,7 +12,7 @@ Following operators are supported by this Regex Engine
 
 |Operator | Symbol  | Regex| Strings |
 |---|---|---|---|
-| Union | `|` | `a|b` | eg: `a`, `b`|
+| Union | `\|` | `a\|b` | eg: `a`, `b`|
 | Concatenation | `.` | `a.b` | eg: `ab`|
 | Closure | `*` | `a*` | eg: `''`, `a`, `aa`, `aaa`|
 

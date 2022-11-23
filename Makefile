@@ -6,7 +6,10 @@ TARGET = bin/run/engine
 SOURCEF = $(patsubst src/%.c, build/%.o, $(wildcard src/*.c))
 
 execute: build
-	$(TARGET)
+	$(TARGET) run
+
+test: build
+	$(TARGET) test
 
 build: $(SOURCEF)
 	@echo "Linking and compiling ....."
@@ -16,7 +19,7 @@ $(ODIR)/%.o: $(IDIR)/%.c
 	$(CC) -c $(CFLAGS) $< -o $@ 
 
 clean:
-	rm -f $(ODIR)/*.o bin/run/NFA
+	rm -f $(ODIR)/*.o bin/run/NFA data/raw/regex.log
 
 .PHONY: clean
 

@@ -1,0 +1,20 @@
+((a|b).(c|))*; abcd; ab; aabc
+((a|b).(|c))*; cdb; cd; bcc
+a|b|c.d; a; cd; abc
+a*|b.d; aaaaaa; db; aaab
+(a*)|b; aaaab; aaaaa; a; b
+a.b.c.d; abcd; abc; cd; bcc
+|b.c*.d; cdb; cd; bcc
+b.c*.d|a; bccccd; a; bd
+().c; abc; c; cc
+)|c.b(*); cccb; cb; cbbb
+ab.; abc; ab; aaaa; 
+ab.db|c; abd; abdb; abdbc
+a|b.cz; acz; bcz
+a.b.(c*|g).(k.x*); abccckxx; abgkxx
+a/b.c; ac; ab; abbc
+().(); abb; cdgsf
+(k.a.m|k.k)*; kamkamkam; kkkkkk; kamkkk
+(x.Y.Q*)|c*.D; xY; xYQQQQ; cccccD
+A*.B*.C|D; ABC; AAAC; D; C; AAABBBC
+r.k.v*.(c|m|n); rkvvc; rkm; rkn

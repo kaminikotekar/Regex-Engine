@@ -1,8 +1,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#define HASHSIZE 50
-#define TOTAL_STATES 50
+#define HASHSIZE 100
+#define TOTAL_STATES 100
 #define VISITED_EPSILON 50
 #define INFIX_SIZE 50
 #define PATTERN_SIZE 100

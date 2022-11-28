@@ -15,8 +15,10 @@ int insertItem(char c, char *hashmap)
     int index = getHash(c, hashmap);
     char * log_output = (char*)malloc(LOG_SIZE * sizeof(char));
 
-    while (index++ < HASHSIZE){
+    while (index < HASHSIZE){
         if (hashmap[index] == '#') break; 
+        if (hashmap[index] == c) return 1;
+        index++;
     }    
     if (index > HASHSIZE) return 0;
 

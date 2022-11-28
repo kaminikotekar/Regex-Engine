@@ -62,7 +62,7 @@ Use `make` utility to build and execute.
 
 ### Architecture
 
-![image info](./data/raw/regex_architecture.png)
+![image info](./extras/regex_architecture.png)
 
 Following constants can be modified in a constants file `include/Constants.h` based on the requirement.
 
@@ -90,6 +90,12 @@ re_2; pattr_21; pattr_22; pattr_23; .....
 ```
 
 
-
 ### References
 *  [Implementing a Regular Expression Engine by Denis Kyashif](https://deniskyashif.com/2019/02/17/implementing-a-regular-expression-engine/)
+
+
+### Screenshots
+
+| `make execute` | `make test` |
+|---|---|
+|![image info](./extras/SS1.png)|![image info](./extras/SS2.png)|

@@ -49,7 +49,7 @@ Use `make` utility to build and execute.
     ```
 * To execute engine
     ```
-    make run
+    make execute
     ```
 * To run test cases
     ```
